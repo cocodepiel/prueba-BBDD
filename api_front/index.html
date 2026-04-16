@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salas del Museo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Salas del Museo</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="salas-body">
+                <!-- Las salas se cargarán aquí dinámicamente -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        function cargarSalas(){
+            fetch("http://localhost:4050/salas")
+            .then(function(respTextoPlano){
+                return respTextoPlano.json()
+            })
+            .then(function(dataJSON){
+                console.log(dataJSON)
+                const tbody = document.getElementById("salas-body")
+                tbody.innerHTML = ""
+                for(let sala of dataJSON){
+                    const row = document.createElement("tr")
+
+                    let tableData = document.createElement("td")
+                    tableData.innerText = sala.id
+                    row.appendChild(tableData)
+
+                    tableData = document.createElement("td")
+                    tableData.innerText = sala.nombre
+                    row.appendChild(tableData)
+
+                    tableData = document.createElement("td")
+                    const showButton = document.createElement("button")
+                    showButton.innerText = "Ver Obras"
+                    showButton.classList.add("btn-detalles")
+                    showButton.onclick = function(){
+                        window.location.href = "obras.html?salaId=" + sala.id + "&salaNombre=" + encodeURIComponent(sala.nombre)
+                    }
+                    tableData.appendChild(showButton)
+                    row.appendChild(tableData)
+
+                    tbody.appendChild(row)
+                }
+            })
+            .catch(function(err){
+                console.log("Error al cargar salas:", err)
+            })
+        }
+
+        cargarSalas()
+    </script>
+</body>
+</html>

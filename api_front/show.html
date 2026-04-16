@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles de la Obra</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1 id="nombre-obra"></h1>
+        <b>Descripción:</b> <p id="descripcion-obra"></p>
+        <b>Sala:</b> <p id="sala-obra"></p>
+        <b>Autor:</b> <p id="autor-obra"></p>
+        <button class="btn-detalles" onclick="window.history.back()">
+            Volver
+        </button>
+    </div>
+
+    <script>
+        function cargarDetallesObra(){
+            const urlParams = new URLSearchParams(window.location.search)
+            const idObra = urlParams.get("id")
+
+            fetch("http://localhost:4050/obras/" + idObra)
+            .then(function(respTextoPlano){
+                return respTextoPlano.json()
+            })
+            .then(function(dataJSON){
+                console.log(dataJSON) || "Sin nombre"
+                document.getElementById("descripcion-obra").innerText = dataJSON.descripcion || "Sin descripción"
+                document.getElementById("sala-obra").innerText = (dataJSON.sala && dataJSON.sala.nombre) ? dataJSON.sala.nombre : "Sin sala"
+                
+                // Mostrar autor si existe
+                if(dataJSON.usuario && dataJSON.usuario.nombre){
+                    document.getElementById("autor-obra").innerText = dataJSON.usuario.nombre + " " + (dataJSON.usuario.apellido1 || "")
+                } else {
+                    document.getElementById("autor-obra").innerText = "No asignado"
+                }
+                document.getElementById("sala-obra").innerText = dataJSON.sala ? dataJSON.sala.nombre : "Sin sala"
+            })
+            .catch(function(err){
+                console.log("Error al cargar detalles:", err)
+            })
+        }
+
+        cargarDetallesObra()
+    </script>
+</body>
+</html>
