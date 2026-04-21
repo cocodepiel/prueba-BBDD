@@ -20,7 +20,7 @@ public class UsuarioController {
     @Autowired
     private IUsuarioService usuarioService;
 
-    //Crear ENDPOINT (WebMethod) de tipo GET
+    
     @GetMapping
     public ArrayList<UsuarioModel> getAllUsuarios(){
         return this.usuarioService.getUsuarios();

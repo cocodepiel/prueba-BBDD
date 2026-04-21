@@ -11,7 +11,7 @@
         <h1>Museo Virtual de Arte</h1>
         <nav>
             <a href="index.html">Salas</a>
-            <a href="obras.html">Obras</a>
+            <a href="todas_obras.html">Obras</a>
         </nav>
     </header>
 
@@ -23,6 +23,7 @@
                     <th>ID</th>
                     <th>Nombre</th>
                     <th>Artista</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody id="obras-body">
@@ -52,17 +53,39 @@
                 const cuerpoTabla = document.getElementById("obras-body")
                 cuerpoTabla.innerHTML = ""
                 for(let obra of datosJSON){
-                    const fila = document.createElement("tr")        
+                    const fila = document.createElement("tr")   
+            
                     let celdaTabla = document.createElement("td")
+
                     celdaTabla.innerText = obra.id
+
                     fila.appendChild(celdaTabla)
+
                     celdaTabla = document.createElement("td")
+
                     celdaTabla.innerText = obra.nombre
+
                     fila.appendChild(celdaTabla)
+
                     celdaTabla = document.createElement("td")
+
                     celdaTabla.innerText = obra.usuario ? obra.usuario.nombre + " " + (obra.usuario.apellido1 || "") : "Sin artista"
+
                     fila.appendChild(celdaTabla)
+
+                    celdaTabla = document.createElement("td")
+                    const botonVerFicha = document.createElement("button")
+                    botonVerFicha.innerText = "Ver Ficha"
+                    botonVerFicha.classList.add("btn-detalles")
+                    botonVerFicha.onclick = function(){
+                        window.location.href = "show.html?id=" + obra.id
+                    }
+                    celdaTabla.appendChild(botonVerFicha)
+                    fila.appendChild(celdaTabla)
+
                     cuerpoTabla.appendChild(fila)
+
+                    
                 }
             })
         }
@@ -71,3 +94,4 @@
     </script>
 </body>
 </html>
+

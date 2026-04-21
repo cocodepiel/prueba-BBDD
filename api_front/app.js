@@ -14,6 +14,8 @@ function cargarObras(){
             celdaTabla.innerText = obra.id
             fila.appendChild(celdaTabla)
 
+            
+
             celdaTabla = document.createElement("td")
             celdaTabla.innerText = obra.nombre
             fila.appendChild(celdaTabla)

@@ -11,16 +11,43 @@
         <h1>Museo Virtual de Arte</h1>
         <nav>
             <a href="index.html">Salas</a>
-            <a href="obras.html">Obras</a>
+            <a href="todas_obras.html">Obras</a>
         </nav>
     </header>
 
     <div class="container">
-        <h1 id="nombre-obra"></h1>
-        <b>Descripción:</b> <p id="descripcion-obra"></p>
-        <b>Sala:</b> <p id="sala-obra"></p>
-        <b>Autor:</b> <p id="autor-obra"></p>
-        <button class="btn-detalles" onclick="window.history.back()">
+        <div class="obra-ficha">
+            <div class="obra-imagen">
+                <img id="imagen-obra" src="" alt="Imagen de la Obra" style="max-width: 100%; height: auto; border-radius: 10px; display: none;">
+                <div class="imagen-placeholder" id="placeholder-obra">
+                    <span>Cargando imagen...</span>
+                </div>
+            </div>
+            <div class="obra-detalles">
+                <h1 id="nombre-obra">Título de la Obra</h1>
+                <div class="detalle">
+                    <strong>Descripción:</strong>
+                    <p id="descripcion-obra">Descripción detallada de la obra.</p>
+                </div>
+                <div class="detalle">
+                    <strong>Sala:</strong>
+                    <p id="sala-obra">Nombre de la sala.</p>
+                </div>
+                <div class="detalle">
+                    <strong>Autor:</strong>
+                    <p id="autor-obra">Nombre del autor.</p>
+                </div>
+                <div class="detalle">
+                    <strong>Año:</strong>
+                    <p id="ano-obra">Año de creación.</p>
+                </div>
+                <div class="detalle">
+                    <strong>ID de la Obra:</strong>
+                    <p id="id-obra">ID único.</p>
+                </div>
+            </div>
+        </div>
+        <button class="btn-detalles btn-volver" onclick="window.history.back()">
             Volver
         </button>
     </div>
@@ -30,6 +57,16 @@
     </footer>
 
     <script>
+        const extrasObras = {
+            9: { ano: 1656, imagen: "img/meninas.jpg" },
+            10: { ano: 1600, imagen: "img/vocacion.jpg" },
+            11: { ano: 1931, imagen: "img/persistencia.jpg" },
+            12: { ano: 1964, imagen: "img/hijo.jpg" },
+            13: { ano: 1939, imagen: "img/fridas.jpg" },
+            14: { ano: 1503, imagen: "img/La_Gioconda.jpg" },
+            15: { ano: 1512, imagen: "img/creacion.jpg" }
+        };
+
         function cargarDetallesObra(){
             const parametrosURL = new URLSearchParams(window.location.search)
             const idObra = parametrosURL.get("id")
@@ -39,18 +76,28 @@
                 return respuestaTextoPlano.json()
             })
             .then(function(datosJSON){
-                console.log(datosJSON.nombre || "Sin nombre")
                 document.getElementById("nombre-obra").innerText = datosJSON.nombre || "Sin nombre"
                 document.getElementById("descripcion-obra").innerText = datosJSON.descripcion || "Sin descripción"
                 document.getElementById("sala-obra").innerText = (datosJSON.sala && datosJSON.sala.nombre) ? datosJSON.sala.nombre : "Sin sala"
+                document.getElementById("id-obra").innerText = datosJSON.id || idObra
                 
-                // Mostrar autor si existe
                 if(datosJSON.usuario && datosJSON.usuario.nombre){
                     document.getElementById("autor-obra").innerText = datosJSON.usuario.nombre + " " + (datosJSON.usuario.apellido1 || "")
                 } else {
                     document.getElementById("autor-obra").innerText = "No asignado"
                 }
-                document.getElementById("sala-obra").innerText = datosJSON.sala ? datosJSON.sala.nombre : "Sin sala"
+
+                const extras = extrasObras[idObra];
+                if (extras) {
+                    document.getElementById("ano-obra").innerText = extras.ano;
+                    const imgEl = document.getElementById("imagen-obra");
+                    imgEl.src = extras.imagen;
+                    imgEl.style.display = "block";
+                    document.getElementById("placeholder-obra").style.display = "none";
+                } else {
+                    document.getElementById("ano-obra").innerText = "Desconocido";
+                    document.getElementById("placeholder-obra").innerHTML = "<span>Imagen no disponible</span>";
+                }
             })
             .catch(function(error){
                 console.log("Error al cargar detalles:", error)
