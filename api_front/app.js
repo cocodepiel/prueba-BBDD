@@ -1,47 +1,45 @@
 function cargarObras(){
     fetch("http://localhost:4050/obras")
-    .then(function(respTextoPlano){
-        return respTextoPlano.json()
+    .then(function(respuestaTextoPlano){
+        return respuestaTextoPlano.json()
     })
-    .then(function(dataJSON){
-        console.log(dataJSON)
-        const tbody = document.getElementById("obras-body")
-        tbody.innerHTML = ""
-        for(let obra of dataJSON){
-            const row = document.createElement("tr")
+    .then(function(datosJSON){
+        console.log(datosJSON)
+        const cuerpoTabla = document.getElementById("obras-body")
+        cuerpoTabla.innerHTML = ""
+        for(let obra of datosJSON){
+            const fila = document.createElement("tr")
 
-            let tableData = document.createElement("td")
-            tableData.innerText = obra.id
-            row.appendChild(tableData)
+            let celdaTabla = document.createElement("td")
+            celdaTabla.innerText = obra.id
+            fila.appendChild(celdaTabla)
 
-            tableData = document.createElement("td")
-            tableData.innerText = obra.nombre
-            row.appendChild(tableData)
+            celdaTabla = document.createElement("td")
+            celdaTabla.innerText = obra.nombre
+            fila.appendChild(celdaTabla)
             
-            tableData = document.createElement("td")
-            tableData.innerText = obra.descripcion
-            row.appendChild(tableData)
+            celdaTabla = document.createElement("td")
+            celdaTabla.innerText = obra.descripcion
+            fila.appendChild(celdaTabla)
 
-            tableData = document.createElement("td")
-            tableData.innerText = obra.sala ? obra.sala.nombre : "Sin sala"
-            row.appendChild(tableData)
+            celdaTabla = document.createElement("td")
+            celdaTabla.innerText = obra.sala ? obra.sala.nombre : "Sin sala"
+            fila.appendChild(celdaTabla)
 
-            tableData = document.createElement("td")
-            const showButton = document.createElement("button")
-            showButton.innerText = "Ver"
-            showButton.classList.add("btn-detalles")
-            showButton.onclick = function(){
+            celdaTabla = document.createElement("td")
+            const botonMostrar = document.createElement("button")
+            botonMostrar.innerText = "Ver"
+            botonMostrar.classList.add("btn-detalles")
+            botonMostrar.onclick = function(){
                 window.location.href = "show.html?id=" + obra.id
             }
-            tableData.appendChild(showButton)
-            row.appendChild(tableData)
+            celdaTabla.appendChild(botonMostrar)
+            fila.appendChild(celdaTabla)
 
-            tbody.appendChild(row)
+            cuerpoTabla.appendChild(fila)
         }
     })
-    .catch(function(err){
-        console.log("Error al cargar obras:", err)
+    .catch(function(error){
+        console.log("Error al cargar obras:", error)
     })
 }
-
-cargarObras()

@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 public class UsuarioModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_usuario")
     private Long id;
     
     @Column
@@ -21,7 +22,7 @@ public class UsuarioModel {
         this.nombre = nombre;
     }*/
 
-    // GETTERS
+    // OBTENEDORES
     public Long getId() {
         return id;
     }
@@ -33,7 +34,7 @@ public class UsuarioModel {
         return apellido1;
     }
 
-    // SETTERS
+    // ESTABLECEDORES
     public void setId(Long id) {
         this.id = id;
     }

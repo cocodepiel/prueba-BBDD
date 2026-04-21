@@ -1,7 +1,6 @@
 package com.example.api.api.services;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import com.example.api.api.models.ObraModel;
@@ -19,5 +18,7 @@ public interface IObraService {
     //R --> Select * from Obras
     ArrayList<ObraModel> getObras();
     Optional<ObraModel> getById(Long id);
+
+    ArrayList<ObraModel> getObrasBySalaId(Long salaId);
     
 }

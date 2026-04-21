@@ -8,7 +8,7 @@ public class ObraModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_obra") // <--- Aquí es donde cambias el nombre físico de la tabla
+    @Column(name = "id_obra")
     private Long id;
 
     @Column
@@ -44,8 +44,8 @@ public class ObraModel {
         this.nombre = nombre;
     }*/
 
-    // GETTERS
-    //decripcion    
+    // OBTENEDORES
+    //descripcion    
 
 
     public Long getId() {
@@ -59,7 +59,7 @@ public class ObraModel {
         return descripcion;
     }
 
-    // SETTERS
+    // ESTABLECEDORES
     public void setId(Long id) {
         this.id = id;
     }

@@ -3,10 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salas del Museo</title>
+    <title>Museo Virtual - Salas</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <header>
+        <h1>Museo Virtual de Arte</h1>
+        <nav>
+            <a href="index.html">Salas</a>
+            <a href="obras.html">Obras</a>
+        </nav>
+    </header>
+
     <div class="container">
         <h1>Salas del Museo</h1>
         <table>
@@ -23,43 +31,47 @@
         </table>
     </div>
 
+    <footer>
+        <p> Museo Virtual de Arte. Alicia Ros</p>
+    </footer>
+
     <script src="app.js"></script>
     <script>
         function cargarSalas(){
             fetch("http://localhost:4050/salas")
-            .then(function(respTextoPlano){
-                return respTextoPlano.json()
+            .then(function(respuestaTextoPlano){
+                return respuestaTextoPlano.json()
             })
-            .then(function(dataJSON){
-                console.log(dataJSON)
-                const tbody = document.getElementById("salas-body")
-                tbody.innerHTML = ""
-                for(let sala of dataJSON){
-                    const row = document.createElement("tr")
+            .then(function(datosJSON){
+                console.log(datosJSON)
+                const cuerpoTabla = document.getElementById("salas-body")
+                cuerpoTabla.innerHTML = ""
+                for(let sala of datosJSON){
+                    const fila = document.createElement("tr")
 
-                    let tableData = document.createElement("td")
-                    tableData.innerText = sala.id
-                    row.appendChild(tableData)
+                    let celdaTabla = document.createElement("td")
+                    celdaTabla.innerText = sala.id
+                    fila.appendChild(celdaTabla)
 
-                    tableData = document.createElement("td")
-                    tableData.innerText = sala.nombre
-                    row.appendChild(tableData)
+                    celdaTabla = document.createElement("td")
+                    celdaTabla.innerText = sala.nombre
+                    fila.appendChild(celdaTabla)
 
-                    tableData = document.createElement("td")
-                    const showButton = document.createElement("button")
-                    showButton.innerText = "Ver Obras"
-                    showButton.classList.add("btn-detalles")
-                    showButton.onclick = function(){
+                    celdaTabla = document.createElement("td")
+                    const botonMostrar = document.createElement("button")
+                    botonMostrar.innerText = "Ver Obras"
+                    botonMostrar.classList.add("btn-detalles")
+                    botonMostrar.onclick = function(){
                         window.location.href = "obras.html?salaId=" + sala.id + "&salaNombre=" + encodeURIComponent(sala.nombre)
                     }
-                    tableData.appendChild(showButton)
-                    row.appendChild(tableData)
+                    celdaTabla.appendChild(botonMostrar)
+                    fila.appendChild(celdaTabla)
 
-                    tbody.appendChild(row)
+                    cuerpoTabla.appendChild(fila)
                 }
             })
-            .catch(function(err){
-                console.log("Error al cargar salas:", err)
+            .catch(function(error){
+                console.log("Error al cargar salas:", error)
             })
         }
 

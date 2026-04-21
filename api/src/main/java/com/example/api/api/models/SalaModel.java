@@ -19,7 +19,7 @@ public class SalaModel {
         this.nombre = nombre;
     }*/
 
-    // GETTERS
+    // OBTENEDORES
     public Long getId() {
         return id;
     }
@@ -28,7 +28,7 @@ public class SalaModel {
         return nombre;
     }
 
-    // SETTERS
+    // ESTABLECEDORES
     public void setId(Long id) {
         this.id = id;
     }

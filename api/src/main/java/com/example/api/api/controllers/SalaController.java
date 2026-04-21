@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
+import com.example.api.api.models.ObraModel;
 import com.example.api.api.models.SalaModel;
 import com.example.api.api.services.ISalaService;
 
@@ -30,6 +31,11 @@ public class SalaController {
     @GetMapping("/{id}")
     public Optional<SalaModel> getSalaById(@PathVariable Long id){
         return this.salaService.getById(id);
+    }
+
+    @GetMapping("/{id}/obras")
+    public ArrayList<ObraModel> getObrasBySala(@PathVariable Long id){
+        return this.salaService.getObrasBySalaId(id);
     }
 
     @PostMapping

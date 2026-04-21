@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Museo Virtual - Obras</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Museo Virtual de Arte</h1>
+        <nav>
+            <a href="index.html">Salas</a>
+            <a href="obras.html">Obras</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1 id="sala-nombre">Obras de la Sala</h1>
+        <table> 
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Artista</th>
+                </tr>
+            </thead>
+            <tbody id="obras-body">
+                <!-- Las obras se cargarán aquí dinámicamente -->
+            </tbody>
+        </table>
+        <button class="btn-detalles" onclick="window.history.back()">Volver</button>
+    </div>
+
+    <footer>
+        <p> Museo Virtual de Arte. Alicia Ros</p>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        function cargarObras(){
+            const parametrosURL = new URLSearchParams(window.location.search)
+            const idSala = parametrosURL.get("salaId")
+            const nombreSala = parametrosURL.get("salaNombre")
+            document.getElementById("sala-nombre").innerText = "Obras de la Sala: " + nombreSala    
+            fetch("http://localhost:4050/salas/" + idSala + "/obras")
+            .then(function(respuestaTextoPlano){
+                return respuestaTextoPlano.json()
+            })
+            .then(function(datosJSON){
+                console.log(datosJSON)
+                const cuerpoTabla = document.getElementById("obras-body")
+                cuerpoTabla.innerHTML = ""
+                for(let obra of datosJSON){
+                    const fila = document.createElement("tr")        
+                    let celdaTabla = document.createElement("td")
+                    celdaTabla.innerText = obra.id
+                    fila.appendChild(celdaTabla)
+                    celdaTabla = document.createElement("td")
+                    celdaTabla.innerText = obra.nombre
+                    fila.appendChild(celdaTabla)
+                    celdaTabla = document.createElement("td")
+                    celdaTabla.innerText = obra.usuario ? obra.usuario.nombre + " " + (obra.usuario.apellido1 || "") : "Sin artista"
+                    fila.appendChild(celdaTabla)
+                    cuerpoTabla.appendChild(fila)
+                }
+            })
+        }
+
+        cargarObras();
+    </script>
+</body>
+</html>

@@ -29,4 +29,9 @@ public class ObraService implements IObraService {
         return this.obraRepository.findById(id);
     }
 
+    @Override
+    public ArrayList<ObraModel> getObrasBySalaId(Long salaId) {
+        return (ArrayList<ObraModel>) this.obraRepository.findBySala_Id(salaId);
+    }
+
 }
