@@ -12,7 +12,7 @@ import com.example.api.api.repositories.IObraRepository;
 @Service
 public class ObraService implements IObraService {
     @Autowired
-    private IObraRepository obraRepository;
+    private IObraRepository obraRepository; 
 
     @Override
     public ObraModel insertObra(ObraModel obra) {

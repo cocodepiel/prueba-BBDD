@@ -1,7 +1,6 @@
 package com.example.api.api.controllers;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +20,7 @@ public class ObraController {
     @Autowired
     private IObraService obraService;
 
+    //GET ALL
     @GetMapping
     public ArrayList<ObraModel> getAllObras() {
         return this.obraService.getObras();
@@ -31,20 +31,9 @@ public class ObraController {
         return this.obraService.getById(id);
     }
 
-    // insertar una sola
     @PostMapping
     public ObraModel insertObra(@RequestBody ObraModel obra) {
         return this.obraService.insertObra(obra);
     }
 
-    // insertar varias
-    @PostMapping("/all")
-    public List<ObraModel> insertMultipleObras(@RequestBody List<ObraModel> obras) {
-        List<ObraModel> insertedObras = new ArrayList<>();
-        for (ObraModel obra : obras) {
-            ObraModel inserted = this.obraService.insertObra(obra);
-            insertedObras.add(inserted);
-        }
-        return insertedObras;
-    }
 }

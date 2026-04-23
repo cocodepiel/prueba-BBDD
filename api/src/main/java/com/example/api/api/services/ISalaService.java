@@ -7,16 +7,14 @@ import com.example.api.api.models.ObraModel;
 import com.example.api.api.models.SalaModel;
 
 public interface ISalaService {
-    //CRUD
-    //C --> Create (INSERT INTO Sala...)
+        //CRUD
+    //C --> Create (INSERT INTO...)
     //R --> Read (SELECT * FROM ...)
-    //U --> Update (UPDATE Sala SET...)
-    //D --> Delete (DELETE FROM Sala WHERE ...)
+    //U --> Update (UPDATE SET...)
+    //D --> Delete (DELETE FROM / WHERE ...)
 
-    //C --> Create (INSERT INTO Sala...)
     SalaModel insertSala(SalaModel sala);
 
-    //R --> Select * from Salas
     ArrayList<SalaModel> getSalas();
     Optional<SalaModel> getById(Long id);
 

@@ -6,16 +6,14 @@ import java.util.Optional;
 import com.example.api.api.models.ObraModel;
 
 public interface IObraService {
-    //CRUD
-    //C --> Create (INSERT INTO Obra...)
+       //CRUD
+    //C --> Create (INSERT INTO...)
     //R --> Read (SELECT * FROM ...)
-    //U --> Update (UPDATE Obra SET...)
-    //D --> Delete (DELETE FROM Obra WHERE ...)
+    //U --> Update (UPDATE SET...)
+    //D --> Delete (DELETE FROM / WHERE ...)
 
-    //C --> Create (INSERT INTO Obra...)
     ObraModel insertObra(ObraModel obra);
 
-    //R --> Select * from Obras
     ArrayList<ObraModel> getObras();
     Optional<ObraModel> getById(Long id);
 

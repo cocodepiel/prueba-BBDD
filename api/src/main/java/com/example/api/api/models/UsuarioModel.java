@@ -11,18 +11,11 @@ public class UsuarioModel {
     private Long id;
     
     @Column
-    private String nombre; // Usuario 1, Usuario 2, etc.
+    private String nombre;
 
     private String apellido1;
 
-    // CONSTRUCTORES (OPCIONALES)
-    /*public UsuarioModel() {}
 
-    public UsuarioModel(String nombre) {
-        this.nombre = nombre;
-    }*/
-
-    // OBTENEDORES
     public Long getId() {
         return id;
     }
@@ -34,7 +27,6 @@ public class UsuarioModel {
         return apellido1;
     }
 
-    // ESTABLECEDORES
     public void setId(Long id) {
         this.id = id;
     }

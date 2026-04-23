@@ -39,7 +39,7 @@
                 </div>
                 <div class="detalle">
                     <strong>Año:</strong>
-                    <p id="ano-obra">Año de creación.</p>
+                    <p id="anyo-obra">Año de creación.</p>
                 </div>
                 <div class="detalle">
                     <strong>ID de la Obra:</strong>
@@ -56,55 +56,6 @@
         <p> Museo Virtual de Arte. Alicia Ros</p>
     </footer>
 
-    <script>
-        const extrasObras = {
-            9: { ano: 1656, imagen: "img/meninas.jpg" },
-            10: { ano: 1600, imagen: "img/vocacion.jpg" },
-            11: { ano: 1931, imagen: "img/persistencia.jpg" },
-            12: { ano: 1964, imagen: "img/hijo.jpg" },
-            13: { ano: 1939, imagen: "img/fridas.jpg" },
-            14: { ano: 1503, imagen: "img/La_Gioconda.jpg" },
-            15: { ano: 1512, imagen: "img/creacion.jpg" }
-        };
-
-        function cargarDetallesObra(){
-            const parametrosURL = new URLSearchParams(window.location.search)
-            const idObra = parametrosURL.get("id")
-
-            fetch("http://localhost:4050/obras/" + idObra)
-            .then(function(respuestaTextoPlano){
-                return respuestaTextoPlano.json()
-            })
-            .then(function(datosJSON){
-                document.getElementById("nombre-obra").innerText = datosJSON.nombre || "Sin nombre"
-                document.getElementById("descripcion-obra").innerText = datosJSON.descripcion || "Sin descripción"
-                document.getElementById("sala-obra").innerText = (datosJSON.sala && datosJSON.sala.nombre) ? datosJSON.sala.nombre : "Sin sala"
-                document.getElementById("id-obra").innerText = datosJSON.id || idObra
-                
-                if(datosJSON.usuario && datosJSON.usuario.nombre){
-                    document.getElementById("autor-obra").innerText = datosJSON.usuario.nombre + " " + (datosJSON.usuario.apellido1 || "")
-                } else {
-                    document.getElementById("autor-obra").innerText = "No asignado"
-                }
-
-                const extras = extrasObras[idObra];
-                if (extras) {
-                    document.getElementById("ano-obra").innerText = extras.ano;
-                    const imgEl = document.getElementById("imagen-obra");
-                    imgEl.src = extras.imagen;
-                    imgEl.style.display = "block";
-                    document.getElementById("placeholder-obra").style.display = "none";
-                } else {
-                    document.getElementById("ano-obra").innerText = "Desconocido";
-                    document.getElementById("placeholder-obra").innerHTML = "<span>Imagen no disponible</span>";
-                }
-            })
-            .catch(function(error){
-                console.log("Error al cargar detalles:", error)
-            })
-        }
-
-        cargarDetallesObra()
-    </script>
+    <script src="show.js"></script>
 </body>
 </html>

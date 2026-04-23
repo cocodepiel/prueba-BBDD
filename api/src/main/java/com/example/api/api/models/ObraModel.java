@@ -20,7 +20,7 @@ public class ObraModel {
     private SalaModel sala;
 
     @ManyToOne
-    @JoinColumn(name = "id_usuario") // Nombre de la columna física en la tabla de MySQL
+    @JoinColumn(name = "id_usuario")
     private UsuarioModel usuario;
 
     public SalaModel getSala() { 
@@ -37,17 +37,6 @@ public class ObraModel {
         this.usuario = usuario; 
     }
 
-    // CONSTRUCTORES (OPCIONALES)
-    /*public CicloFormativoModel() {}
-
-    public CicloFormativoModel(String nombre) {
-        this.nombre = nombre;
-    }*/
-
-    // OBTENEDORES
-    //descripcion    
-
-
     public Long getId() {
         return id;
     }
@@ -59,7 +48,7 @@ public class ObraModel {
         return descripcion;
     }
 
-    // ESTABLECEDORES
+
     public void setId(Long id) {
         this.id = id;
     }

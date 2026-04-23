@@ -6,16 +6,15 @@ import java.util.Optional;
 import com.example.api.api.models.UsuarioModel;
 
 public interface IUsuarioService {
-    //CRUD
-    //C --> Create (INSERT INTO Usuario...)
+        //CRUD
+    //C --> Create (INSERT INTO...)
     //R --> Read (SELECT * FROM ...)
-    //U --> Update (UPDATE Usuario SET...)
-    //D --> Delete (DELETE FROM Usuario WHERE ...)
+    //U --> Update (UPDATE SET...)
+    //D --> Delete (DELETE FROM / WHERE ...)
 
-    //C --> Create (INSERT INTO Usuario...)
     UsuarioModel insertUsuario(UsuarioModel usuario);
 
-    //R --> Select * from Usuarios
+
     ArrayList<UsuarioModel> getUsuarios();
     Optional<UsuarioModel> getById(Long id);
     

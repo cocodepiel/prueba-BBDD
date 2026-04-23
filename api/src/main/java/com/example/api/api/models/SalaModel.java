@@ -10,16 +10,9 @@ public class SalaModel {
     private Long id;
     
     @Column
-    private String nombre; // Sala 1, Sala 2, etc.
+    private String nombre;
 
-    // CONSTRUCTORES (OPCIONALES)
-    /*public SalaModel() {}
 
-    public SalaModel(String nombre) {
-        this.nombre = nombre;
-    }*/
-
-    // OBTENEDORES
     public Long getId() {
         return id;
     }
@@ -28,7 +21,7 @@ public class SalaModel {
         return nombre;
     }
 
-    // ESTABLECEDORES
+
     public void setId(Long id) {
         this.id = id;
     }
